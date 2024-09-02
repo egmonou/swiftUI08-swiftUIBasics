@@ -8,7 +8,8 @@ struct ContentView: View {
     let colorList2: [Color] = [.red, .purple, .green, .pink]
     let rotationAngel: CGFloat = 360
     @State private var screenTapped: Bool = false
-    
+    @State private var textSize: Bool = false
+
     var body: some View {
 
             ZStack {
@@ -22,7 +23,7 @@ struct ContentView: View {
                     Spacer()
                     //Text1
                     Text(screenTapped ? "The Basics of SwiftUI" : "To know what yo know and what do now know, that is true knoledge.")
-                        .font(screenTapped ? .largeTitle: .title)
+                        .font(textSize ? .largeTitle: .caption)
                         .fontWeight(.semibold)
                         .foregroundStyle(.red)
                         .multilineTextAlignment(.center)
@@ -34,7 +35,7 @@ struct ContentView: View {
                     Spacer()
                     //Text2
                     Text("Antheor line of Text")
-                        .font(screenTapped ? .largeTitle: .title)
+                        .font(textSize ? .largeTitle : .caption)
                         .fontWeight(.semibold)
                         .foregroundStyle(screenTapped ? .blue : .white)
                         .multilineTextAlignment(.center)
@@ -44,6 +45,14 @@ struct ContentView: View {
                         )
                         .padding(.horizontal)
                     Spacer()
+                    //Button
+                    Button(action: {
+                        textSize.toggle()
+                    }, label: {
+                        Text("Click Me")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .fontWeight(.semibold)
+                    })
                 }
                 
             }
