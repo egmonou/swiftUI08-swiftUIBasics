@@ -4,71 +4,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var screenTapped: Bool = false
+    @State private var offsetY: CGFloat = -150
+
     var body: some View {
-        //        VStack(spacing: 0) {
-        //            Text("SwiftUI Basics1")
-        //                .font(.largeTitle)
-        //                .fontWeight(.semibold)
-        //            .foregroundStyle(.red)
-        //
-        //            Text("SwiftUI Basics2")
-        //                .font(.largeTitle)
-        //                .fontWeight(.semibold)
-        //            .foregroundStyle(.green)
-        //
-        //            Text("SwiftUI Basics3")
-        //                .font(.largeTitle)
-        //                .fontWeight(.semibold)
-        //            .foregroundStyle(.blue)
-        //        }
-        
-        
-        
-        //        ZStack {
-        //            //Background Color
-        //            Color
-        //                .red
-        //                .opacity(0.1)
-        //                .ignoresSafeArea()
-        //            //Text
-        //            Text("SwiftUI Basics1")
-        //                .font(.largeTitle)
-        //                .fontWeight(.semibold)
-        //            .foregroundStyle(.blue)
-        //        }
-        
-        
-        
-   //     ZStack {
-            //            //Background Color
-            //            Color
-            //                .red
-            //                .opacity(0.1)
-            //                .ignoresSafeArea()
-            //            //Text
-            //            Text("SwiftUI Basics1")
-            //                .font(.largeTitle)
-            //                .fontWeight(.semibold)
-            //            .foregroundStyle(.blue)
-            //        }
-            
-            
+            let colorList1: [Color] =  [.black, .white, .blue]
+            let colorList2: [Color] = [.red, .purple, .green, .pink]
             ZStack {
                 //Background Color
-               LinearGradient(colors: [.red, .purple, .green, .pink],
+                LinearGradient(colors: screenTapped ? colorList1 : colorList2,
                 startPoint: .topLeading, endPoint: .bottomTrailing)
-               .opacity(0.5)
+               .opacity(0.8)
                .ignoresSafeArea()
                 //Text
                 Text("SwiftUI Basics1")
                     .font(.largeTitle)
                     .fontWeight(.semibold)
                     .foregroundStyle(.blue)
+                    .offset(y: offsetY)
+            }
+            .onTapGesture {
+                //change screen color if tapped
+                screenTapped.toggle()
+                withAnimation(.easeIn(duration: 1)) {
+                    if screenTapped {
+                        offsetY = -1000
+                    }else {
+                        offsetY = 0
+                    }
+                }
+                
             }
     }
 }
 
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
